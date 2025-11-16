@@ -63,7 +63,7 @@ async def create_personaje( personaje: Personaje) -> Personaje:
     VALUES (?, ?, ?, ?);
     """
 
-    params = [personaje.nombrePersonaje, personaje.nivel, personaje.vida, personaje.claseId]
+    params = [personaje.nombrePersonaje, personaje.nivel, personaje.vida, personaje.Clase_ID]
 
     insert_result = None
 
@@ -186,7 +186,6 @@ async def get_personaje_asignos( id: int) -> dict:
                 "Asignacion_ID": registro["Asignacion_ID"],
                 "Inventario_ID": registro["Inventario_ID"],
                 "Item_ID": registro["Item_ID"],
-                "Personaje_ID": registro["Personaje_ID"]
             }
             asignaciones.append(asignacion)
         

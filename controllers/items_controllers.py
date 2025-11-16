@@ -58,7 +58,7 @@ async def create_item( item: Items) -> Items:
     insert_result = None
 
     try:
-        insert_result = await execute_query_json(sqlscripts, params)
+        insert_result = await execute_query_json(sqlscripts, params, needs_commit=True)
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"Database error: { str(e) }")
     
@@ -81,24 +81,24 @@ async def create_item( item: Items) -> Items:
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: { str(e) }")
     
-async def update_item( id: int, item: Items) -> Items:
+async def update_item(item: Items) -> Items:
     updatescripts: str = f"""
         UPDATE [JuegoRPG].[Items]
         SET [NombreItem] = ?
         WHERE [id] = ?;
         """
-    params = [item.nombreItem, id]
-
+    params = [item.nombreItem, item.id]
+    update_result=None
     try:
-        await execute_query_json(updatescripts, params, needs_commit=True)
+        update_ressult=await execute_query_json(updatescripts, params, needs_commit=True)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: { str(e) }")
     
-    sqlfind: str = """
+    sqlfind: str = f"""
         SELECT [ID],
         [NombreItem]
         FROM [JuegoRPG].[Items]
-        WHERE id = ?;
+        WHERE NombreItem = ?;
         """
     params = [item.nombreItem]
     result_dict = []

@@ -3,11 +3,11 @@ import os
 import pyodbc
 import logging
 import json
-import asysncio
+import asyncio
 
 load_dotenv()
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger= logging.getLogger(__name__)
 
 driver: str = os.getenv("SQL_DRIVER")
@@ -16,7 +16,7 @@ database: str = os.getenv("SQL_DATABASE")
 username: str = os.getenv("SQL_USERNAME")
 password: str = os.getenv("SQL_PASSWORD")
 
-connection_string: str = f"DRIVER={{{driver}}};SERVER={server};DATABASE={database};UID={username};PWD={password}"
+connection_string: str = f"DRIVER={driver};SERVER={server};DATABASE={database};UID={username};PWD={password}"
 
 async def get_db_connection():
     try:

@@ -33,7 +33,7 @@ async def update_clase_info(id: int, clase: Clase):
 
 ##Interaccion con clase-personajes
 
-@router.get("/{id}", tags=["Clase"], status_code=status.HTTP_200_OK)
+@router.get("/{id}/personaje", tags=["Clase"], status_code=status.HTTP_200_OK)
 async def get_clase_personajes_info(id: int):
     result = await get_clase_personajes(id)
     return result

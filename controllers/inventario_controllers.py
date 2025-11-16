@@ -58,7 +58,7 @@ async def create_inventario( inventario: Inventario) -> Inventario:
     insert_result = None
 
     try:
-        insert_result = await execute_query_json(sqlscripts, params)
+        insert_result = await execute_query_json(sqlscripts, params, needs_commit=True)
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"Database error: { str(e) }")
     
@@ -81,20 +81,20 @@ async def create_inventario( inventario: Inventario) -> Inventario:
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: { str(e) }")
 
-async def update_inventario( id: int, inventario: Inventario) -> Inventario:
+async def update_inventario(inventario: Inventario) -> Inventario:
     updatescripts: str = f"""
         UPDATE [JuegoRPG].[Inventarios]
         SET NombreInventario = ?
         WHERE [id] = ?;
         """
-    params = [inventario.NombreInventario, id]
-
+    params = [inventario.NombreInventario, inventario.id]
+    update_result = None
     try:
-        await execute_query_json(updatescripts, params)
+        update_result=await execute_query_json(updatescripts, params, needs_commit=True)
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"Database error: { str(e) }")
     
-    sqlfind: str = """
+    sqlfind: str = f"""
         SELECT [ID],
         [NombreInventario]
         FROM [JuegoRPG].[Inventarios]

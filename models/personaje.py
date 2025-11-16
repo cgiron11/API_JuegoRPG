@@ -27,7 +27,7 @@ class Personaje(BaseModel):
         le=1000,
         examples=[100, 500, 1000]
         )
-    claseId: Optional[int] = Field(
+    Clase_ID: Optional[int] = Field(
         description="ID de la clase a la que pertenece el personaje",
         default=None,
         ge=1,

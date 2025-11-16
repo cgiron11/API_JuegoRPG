@@ -136,10 +136,7 @@ async def update_clase( clase: Clase) -> Clase:
 async def get_clase_personajes( id: int) -> list[Clase]:
     selecscripts = """
         SELECT p.[ID],
-            p.[NombrePersonaje],
-            p.[Nivel],
-            p.[Vida],
-            p.[Clase_ID]
+            p.[NombrePersonaje]
         FROM [JuegoRPG].[Personajes] p
         WHERE p.Clase_ID = ?;
     """

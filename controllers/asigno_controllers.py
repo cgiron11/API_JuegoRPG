@@ -33,8 +33,8 @@ async def get_one_Asignacion( id: int) -> Asigno:
             ii.[Inventario_Id],
             ii.[Item_Id],
             ii.[Personaje_Id],
-            i.[Nombre_Inventario],
-            it.[Nombre_Item],
+            i.[NombreInventario],
+            it.[NombreItem],
             p.[NombrePersonaje] as Nombre_Personaje
         FROM [JuegoRPG].[Asigno] ii
         INNER JOIN [JuegoRPG].[Inventarios] i ON ii.[Inventario_Id] = i.[ID]
@@ -69,7 +69,7 @@ async def create_Asignacion( asigno: Asigno) -> Asigno:
     insert_result = None
 
     try:
-        insert_result = await execute_query_json(sqlscripts, params)
+        insert_result = await execute_query_json(sqlscripts, params,needs_commit=True)
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"Database error: { str(e) }")
     

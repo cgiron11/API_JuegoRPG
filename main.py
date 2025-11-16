@@ -1,5 +1,9 @@
-from typing import Union
 from fastapi import FastAPI
+from routes.clase_routes import router as clase_router
+from routes.personaje_routes import router as personaje_router
+from routes.inventario_routes import router as inventario_router
+from routes.items_routes import router as items_router
+from routes.Asigno_routes import router as asigno_router
 
 app = FastAPI()
 
@@ -8,7 +12,9 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
+app.include_router(clase_router)
+app.include_router(personaje_router)
+app.include_router(inventario_router)
+app.include_router(items_router)
+app.include_router(asigno_router)
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
