@@ -29,13 +29,16 @@ async def get_all_personajes() -> list[Personaje]:
 async def get_one_personaje( id: int) -> Personaje:
 
     selecscripts = """
-        SELECT [ID],
-        [NombrePersonaje],
-        [Nivel],
-        [Vida],
-        [Clase_ID]
-    FROM [JuegoRPG].[Personajes]
-    Where id = ?
+    SELECT p.[ID],
+           p.[NombrePersonaje],
+           p.[Nivel],
+           p.[Vida],
+           p.[Clase_ID],
+           c.[NombreClase],
+           c.[Descripcion]
+    FROM [JuegoRPG].[Personajes] p
+    INNER JOIN [JuegoRPG].[Clases] c ON p.Clase_ID = c.ID
+    WHERE p.ID = ?
     """
 
     params = [id]

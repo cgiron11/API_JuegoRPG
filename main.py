@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import FastAPI
 from routes.clase_routes import router as clase_router
 from routes.personaje_routes import router as personaje_router
@@ -18,3 +19,5 @@ app.include_router(inventario_router)
 app.include_router(items_router)
 app.include_router(asigno_router)
 
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")
